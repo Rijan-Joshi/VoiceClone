@@ -73,17 +73,17 @@ class VoiceTest:
     def openvoice(self, text):
         reference_speaker = "modules/openvoice/resources/demo_speaker2.mp3"  # This is the voice you want to clone
         target_se, audio_name = se_extractor.get_se(
-            reference_speaker, self._tone_color_converter, vad=True
+            reference_speaker, self.tone_color_converter, vad=True
         )
         source_se = torch.load(
             f"modules/openvoice/checkpoints_v2/base_speakers/ses/en-newest.pth",
-            map_location=self._device,
+            map_location=self.device,
         )
         save_path = f"{self.output_dir}/output.wav"
         src_path = self.melotts(text, standalone=False)
         # Run the tone color converter
         encode_message = "@MyShell"
-        self._tone_color_converter.convert(
+        self.tone_color_converter.convert(
             audio_src_path=src_path,
             src_se=source_se,
             tgt_se=target_se,
@@ -97,13 +97,13 @@ class VoiceTest:
         model = TTS(
             language="EN_NEWEST",
             device="cpu",
-            ckpt_path="modules/melo/checkpoints/checkpoint.pth",
-            config_path="modules/melo/checkpoints/config.json",
+            ckpt_path="modules/MeloTTS/checkpoints/checkpoint.pth",
+            config_path="modules/MeloTTS/checkpoints/config.json",
         )
         src_path = f"{self.output_dir}/tmp.wav"
 
         # Speed is adjustable
-        speed = 1.1
+        speed = 1.0
         model.tts_to_file(text, 3, src_path, speed=speed)
         end = time.time()
         print("⏰ Melo TTS Execution Time: ", end - start)
