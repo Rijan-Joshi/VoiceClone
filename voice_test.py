@@ -5,6 +5,9 @@ from openvoice import se_extractor
 from openvoice.api import ToneColorConverter
 import pygame as pg
 import time
+import nltk
+
+nltk.download("averaged_perceptron_tagger_eng")
 
 
 class VoiceTest:
