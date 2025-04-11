@@ -39,6 +39,10 @@ python -m unidic download
 
 ## Usage
 
+
+###Requirement
+Python 3.9.x
+
 ### Basic Usage
 
 Run the main script to generate speech with the default settings:
